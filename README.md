@@ -62,6 +62,30 @@ adjusted association, not a final causal effect
 
 That distinction matters. Causal PM should help a PM move from "add-to-cart users buy less later" to "the raw comparison is confounded; after adjustment, add-to-cart appears weakly positive and should be tested with a tighter event-relative window or experiment."
 
+We then tested the tighter event-relative version:
+
+```text
+After add_to_cart at time t, did the same client buy soon after?
+```
+
+At 100k sampled clients:
+
+```text
+same-SKU purchase after add_to_cart
+
+within 1 hour:   28.94%
+within 24 hours: 33.26%
+within 7 days:   35.82%
+
+any-SKU purchase after add_to_cart
+
+within 1 hour:   35.07%
+within 24 hours: 43.77%
+within 7 days:   52.26%
+```
+
+This shows why product structure matters. `add_to_cart` is not just another event; it is a late-funnel commitment action. Evaluated against an overly broad future window, it can look negative. Evaluated against the local product journey around the event, it is strongly associated with near-term purchase.
+
 ## System Shape
 
 ```text

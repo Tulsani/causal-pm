@@ -1,0 +1,53 @@
+{
+  "dataset": {
+    "path": "/Users/tulsani/Documents/Research Ideas/Causal-PM/data/archive",
+    "sampled_clients": 5000,
+    "add_to_cart_events": 14061,
+    "product_buy_events": 6628,
+    "unique_add_to_cart_clients": 2821,
+    "unique_product_buy_clients": 2547
+  },
+  "question": "After add_to_cart at time t, does the client buy soon after?",
+  "same_sku": [
+    {
+      "window_hours": 1.0,
+      "add_to_cart_events": 14061,
+      "matched_purchases": 4253,
+      "conversion_rate": 0.30246781878955975
+    },
+    {
+      "window_hours": 24.0,
+      "add_to_cart_events": 14061,
+      "matched_purchases": 4869,
+      "conversion_rate": 0.3462769362065287
+    },
+    {
+      "window_hours": 168.0,
+      "add_to_cart_events": 14061,
+      "matched_purchases": 5254,
+      "conversion_rate": 0.37365763459213425
+    }
+  ],
+  "any_sku": [
+    {
+      "window_hours": 1.0,
+      "add_to_cart_events": 14061,
+      "matched_purchases": 5202,
+      "conversion_rate": 0.36995946234264987
+    },
+    {
+      "window_hours": 24.0,
+      "add_to_cart_events": 14061,
+      "matched_purchases": 6428,
+      "conversion_rate": 0.4571509849939549
+    },
+    {
+      "window_hours": 168.0,
+      "add_to_cart_events": 14061,
+      "matched_purchases": 7696,
+      "conversion_rate": 0.5473294929236896
+    }
+  ],
+  "evidence_level": "event-relative descriptive timing, not a causal estimate",
+  "interpretation_note": "This analysis tests short-term event timing. It is closer to the product question than the broad pre/post split, but it still needs controls or experimentation before causal interpretation."
+}

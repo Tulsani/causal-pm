@@ -91,3 +91,41 @@ python experiments/scripts/compare_synerise_results.py \
 The comparison table is the fastest way to see whether treatment directions remain stable as sample size increases.
 
 The stratified estimators require overlap. A stratum is excluded if either treatment arm has fewer than 20 clients or fewer than 1% of the stratum.
+
+## Event-Relative Windows
+
+The broad pre/post split asks whether users who added to cart before the cutoff bought later. That is useful, but blunt.
+
+For add-to-cart, the more natural product question is:
+
+```text
+After add_to_cart at time t, did the same client buy soon after?
+```
+
+Run:
+
+```bash
+python experiments/scripts/analyze_event_windows.py \
+  --max-clients 100000 \
+  --windows-hours 1 24 168
+```
+
+This reports same-SKU and any-SKU purchase rates after each add-to-cart event. It is event-relative descriptive timing, not a causal estimate, but it is closer to the interface-level question a PM would ask.
+
+Latest 100k result:
+
+```text
+sampled_clients=100000
+add_to_cart_events=279731
+product_buy_events=131009
+
+scope     window_hours  matched_purchases  conversion_rate
+same_sku  1             80945              28.94%
+same_sku  24            93046              33.26%
+same_sku  168           100194             35.82%
+any_sku   1             98102              35.07%
+any_sku   24            122428             43.77%
+any_sku   168           146182             52.26%
+```
+
+`matched_purchases` counts add-to-cart events with a following purchase. The same purchase can be the next purchase for multiple prior cart events, so this is an event-level rate, not a unique purchase count.

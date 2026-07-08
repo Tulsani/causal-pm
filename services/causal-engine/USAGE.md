@@ -76,3 +76,11 @@ Use a smaller smoke run while editing:
   --sample-sizes 1000 \
   --label smoke
 ```
+
+Analyze tighter event-relative windows:
+
+```bash
+/Users/tulsani/miniconda3/bin/python experiments/scripts/analyze_event_windows.py \
+  --max-clients 100000 \
+  --windows-hours 1 24 168
+```
