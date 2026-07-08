@@ -408,6 +408,7 @@ def _stratified_effect(
     treatment_column: str,
     stratum_column: str,
     min_arm_size: int = 20,
+    min_arm_fraction: float = 0.01,
 ) -> dict[str, object]:
     adjusted_effect = 0.0
     adjusted_weight = 0.0
@@ -417,14 +418,15 @@ def _stratified_effect(
     for stratum, group in cohort.groupby(stratum_column):
         group_treated = group[group[treatment_column]]
         group_control = group[~group[treatment_column]]
-        if len(group_treated) < min_arm_size or len(group_control) < min_arm_size:
+        required_arm_size = max(min_arm_size, int(len(group) * min_arm_fraction))
+        if len(group_treated) < required_arm_size or len(group_control) < required_arm_size:
             dropped_strata.append(
                 {
                     "stratum": int(stratum),
                     "clients": int(len(group)),
                     "treated_clients": int(len(group_treated)),
                     "control_clients": int(len(group_control)),
-                    "reason": f"fewer than {min_arm_size} clients in one arm",
+                    "reason": f"fewer than {required_arm_size} clients in one arm",
                 }
             )
             continue
@@ -459,6 +461,7 @@ def _stratified_effect(
         "dropped_strata": dropped_strata,
         "included_weight": adjusted_weight,
         "min_arm_size": min_arm_size,
+        "min_arm_fraction": min_arm_fraction,
     }
 
 

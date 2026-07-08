@@ -1,0 +1,477 @@
+{
+  "dataset": {
+    "path": "/Users/tulsani/Documents/Research Ideas/Causal-PM/data/archive",
+    "profile": {
+      "rows_by_event": {
+        "page_visit": 156032014,
+        "search_query": 10218831,
+        "add_to_cart": 5674064,
+        "remove_from_cart": 1937170,
+        "product_buy": 1775394
+      },
+      "min_timestamp": "2022-06-23T00:10:00",
+      "max_timestamp": "2022-11-09T23:59:59",
+      "cutoff_timestamp": "2022-09-29T00:02:59.299999999"
+    },
+    "sampled_clients": 5000,
+    "clients_with_post_purchase": 931,
+    "feature_columns": [
+      "pre_page_visit_count",
+      "pre_search_query_count",
+      "pre_add_to_cart_count",
+      "pre_remove_from_cart_count",
+      "pre_product_buy_count",
+      "pre_total_activity",
+      "pre_any_product_buy",
+      "days_since_last_pre_event",
+      "is_active_client",
+      "pre_sku_event_count",
+      "pre_unique_sku_count",
+      "pre_mean_price",
+      "pre_mean_category_sku_count"
+    ]
+  },
+  "effects": [
+    {
+      "treatment": "search_query",
+      "outcome": "post_period_product_buy",
+      "clients": 5000,
+      "treated_clients": 1187,
+      "control_clients": 3813,
+      "treated_risk": 0.17354675652906487,
+      "control_risk": 0.19013899816417518,
+      "naive_risk_difference": -0.016592241635110305,
+      "activity_adjusted_risk_difference": 0.022893293842517665,
+      "propensity_proxy_adjusted_risk_difference": 0.035648633864558,
+      "regression_adjusted_risk_difference": 0.05135140147498473,
+      "regression_adjusted_standard_error": 0.00786754199855326,
+      "regression_adjusted_approx_95_ci": [
+        0.03593101915782034,
+        0.06677178379214913
+      ],
+      "adjustment": "activity strata, propensity-proxy strata, and linear probability adjustment",
+      "confounders": [
+        "pre_page_visit_count",
+        "pre_add_to_cart_count",
+        "pre_remove_from_cart_count",
+        "pre_product_buy_count",
+        "pre_total_activity",
+        "pre_any_product_buy",
+        "days_since_last_pre_event",
+        "is_active_client",
+        "pre_sku_event_count",
+        "pre_unique_sku_count",
+        "pre_mean_price",
+        "pre_mean_category_sku_count"
+      ],
+      "propensity_proxy_confounders": [
+        "pre_page_visit_count",
+        "pre_add_to_cart_count",
+        "pre_remove_from_cart_count",
+        "pre_product_buy_count",
+        "pre_total_activity",
+        "pre_any_product_buy",
+        "days_since_last_pre_event",
+        "is_active_client",
+        "pre_sku_event_count",
+        "pre_unique_sku_count",
+        "pre_mean_price",
+        "pre_mean_category_sku_count"
+      ],
+      "evidence_level": "adjusted association, not a causal estimate unless ignorability assumptions hold",
+      "activity_strata": [
+        {
+          "stratum": 1,
+          "clients": 1250,
+          "treated_clients": 21,
+          "control_clients": 1229,
+          "treated_risk": 0.047619047619047616,
+          "control_risk": 0.07404393816110659,
+          "risk_difference": -0.026424890542058974,
+          "weight": 0.25
+        },
+        {
+          "stratum": 2,
+          "clients": 1250,
+          "treated_clients": 345,
+          "control_clients": 905,
+          "treated_risk": 0.10144927536231885,
+          "control_risk": 0.08287292817679558,
+          "risk_difference": 0.01857634718552327,
+          "weight": 0.25
+        },
+        {
+          "stratum": 3,
+          "clients": 1250,
+          "treated_clients": 821,
+          "control_clients": 429,
+          "treated_risk": 0.20706455542021923,
+          "control_risk": 0.13053613053613053,
+          "risk_difference": 0.0765284248840887,
+          "weight": 0.25
+        }
+      ],
+      "activity_dropped_strata": [
+        {
+          "stratum": 0,
+          "clients": 1250,
+          "treated_clients": 0,
+          "control_clients": 1250,
+          "reason": "fewer than 20 clients in one arm"
+        }
+      ],
+      "activity_included_weight": 0.75,
+      "propensity_proxy_strata": [
+        {
+          "stratum": 1,
+          "clients": 1000,
+          "treated_clients": 95,
+          "control_clients": 905,
+          "treated_risk": 0.06315789473684211,
+          "control_risk": 0.05303867403314917,
+          "risk_difference": 0.010119220703692935,
+          "weight": 0.2
+        },
+        {
+          "stratum": 2,
+          "clients": 1000,
+          "treated_clients": 169,
+          "control_clients": 831,
+          "treated_risk": 0.05917159763313609,
+          "control_risk": 0.09747292418772563,
+          "risk_difference": -0.03830132655458954,
+          "weight": 0.2
+        },
+        {
+          "stratum": 3,
+          "clients": 1000,
+          "treated_clients": 244,
+          "control_clients": 756,
+          "treated_risk": 0.13114754098360656,
+          "control_risk": 0.07539682539682539,
+          "risk_difference": 0.05575071558678117,
+          "weight": 0.2
+        },
+        {
+          "stratum": 4,
+          "clients": 1000,
+          "treated_clients": 678,
+          "control_clients": 322,
+          "treated_risk": 0.23303834808259588,
+          "control_risk": 0.11801242236024845,
+          "risk_difference": 0.11502592572234743,
+          "weight": 0.2
+        }
+      ],
+      "propensity_proxy_dropped_strata": [
+        {
+          "stratum": 0,
+          "clients": 1000,
+          "treated_clients": 1,
+          "control_clients": 999,
+          "reason": "fewer than 20 clients in one arm"
+        }
+      ],
+      "propensity_proxy_included_weight": 0.8,
+      "assumptions": [
+        "observed pre-period activity, recency, lifecycle, and product-property features capture major baseline intent differences",
+        "post-period product_buy is a valid conversion outcome",
+        "no major unobserved confounder remains after adjustment",
+        "treatment occurs before the outcome because of the time split",
+        "active client membership is treated as a lifecycle proxy and may leak future activity depending on target construction"
+      ]
+    },
+    {
+      "treatment": "add_to_cart",
+      "outcome": "post_period_product_buy",
+      "clients": 5000,
+      "treated_clients": 2038,
+      "control_clients": 2962,
+      "treated_risk": 0.1324828263002944,
+      "control_risk": 0.22316002700877785,
+      "naive_risk_difference": -0.09067720070848345,
+      "activity_adjusted_risk_difference": -0.024366407900649867,
+      "propensity_proxy_adjusted_risk_difference": 0.041323702535736875,
+      "regression_adjusted_risk_difference": 0.019384060085919523,
+      "regression_adjusted_standard_error": 0.00871705402596006,
+      "regression_adjusted_approx_95_ci": [
+        0.002298634195037806,
+        0.03646948597680124
+      ],
+      "adjustment": "activity strata, propensity-proxy strata, and linear probability adjustment",
+      "confounders": [
+        "pre_page_visit_count",
+        "pre_search_query_count",
+        "pre_remove_from_cart_count",
+        "pre_product_buy_count",
+        "pre_total_activity",
+        "pre_any_product_buy",
+        "days_since_last_pre_event",
+        "is_active_client",
+        "pre_sku_event_count",
+        "pre_unique_sku_count",
+        "pre_mean_price",
+        "pre_mean_category_sku_count"
+      ],
+      "propensity_proxy_confounders": [
+        "pre_page_visit_count",
+        "pre_search_query_count",
+        "pre_remove_from_cart_count",
+        "pre_product_buy_count",
+        "pre_total_activity",
+        "pre_any_product_buy",
+        "days_since_last_pre_event",
+        "is_active_client",
+        "pre_sku_event_count",
+        "pre_unique_sku_count",
+        "pre_mean_price",
+        "pre_mean_category_sku_count"
+      ],
+      "evidence_level": "adjusted association, not a causal estimate unless ignorability assumptions hold",
+      "activity_strata": [
+        {
+          "stratum": 1,
+          "clients": 1250,
+          "treated_clients": 109,
+          "control_clients": 1141,
+          "treated_risk": 0.03669724770642202,
+          "control_risk": 0.07712532865907099,
+          "risk_difference": -0.040428080952648965,
+          "weight": 0.25
+        },
+        {
+          "stratum": 2,
+          "clients": 1250,
+          "treated_clients": 797,
+          "control_clients": 453,
+          "treated_risk": 0.07779171894604768,
+          "control_risk": 0.10596026490066225,
+          "risk_difference": -0.02816854595461457,
+          "weight": 0.25
+        },
+        {
+          "stratum": 3,
+          "clients": 1250,
+          "treated_clients": 1131,
+          "control_clients": 119,
+          "treated_risk": 0.18037135278514588,
+          "control_risk": 0.18487394957983194,
+          "risk_difference": -0.0045025967946860646,
+          "weight": 0.25
+        }
+      ],
+      "activity_dropped_strata": [
+        {
+          "stratum": 0,
+          "clients": 1250,
+          "treated_clients": 1,
+          "control_clients": 1249,
+          "reason": "fewer than 20 clients in one arm"
+        }
+      ],
+      "activity_included_weight": 0.75,
+      "propensity_proxy_strata": [
+        {
+          "stratum": 1,
+          "clients": 1000,
+          "treated_clients": 27,
+          "control_clients": 973,
+          "treated_risk": 0.1111111111111111,
+          "control_risk": 0.08119218910585817,
+          "risk_difference": 0.029918922005252938,
+          "weight": 0.2
+        },
+        {
+          "stratum": 2,
+          "clients": 1000,
+          "treated_clients": 400,
+          "control_clients": 600,
+          "treated_risk": 0.09,
+          "control_risk": 0.08666666666666667,
+          "risk_difference": 0.003333333333333327,
+          "weight": 0.2
+        },
+        {
+          "stratum": 3,
+          "clients": 1000,
+          "treated_clients": 702,
+          "control_clients": 298,
+          "treated_risk": 0.12535612535612536,
+          "control_risk": 0.06711409395973154,
+          "risk_difference": 0.05824203139639382,
+          "weight": 0.2
+        },
+        {
+          "stratum": 4,
+          "clients": 1000,
+          "treated_clients": 905,
+          "control_clients": 95,
+          "treated_risk": 0.1580110497237569,
+          "control_risk": 0.08421052631578947,
+          "risk_difference": 0.07380052340796743,
+          "weight": 0.2
+        }
+      ],
+      "propensity_proxy_dropped_strata": [
+        {
+          "stratum": 0,
+          "clients": 1000,
+          "treated_clients": 4,
+          "control_clients": 996,
+          "reason": "fewer than 20 clients in one arm"
+        }
+      ],
+      "propensity_proxy_included_weight": 0.8,
+      "assumptions": [
+        "observed pre-period activity, recency, lifecycle, and product-property features capture major baseline intent differences",
+        "post-period product_buy is a valid conversion outcome",
+        "no major unobserved confounder remains after adjustment",
+        "treatment occurs before the outcome because of the time split",
+        "active client membership is treated as a lifecycle proxy and may leak future activity depending on target construction"
+      ]
+    },
+    {
+      "treatment": "remove_from_cart",
+      "outcome": "post_period_product_buy",
+      "clients": 5000,
+      "treated_clients": 972,
+      "control_clients": 4028,
+      "treated_risk": 0.16152263374485595,
+      "control_risk": 0.19215491559086395,
+      "naive_risk_difference": -0.030632281846007997,
+      "activity_adjusted_risk_difference": 0.0033824432946529814,
+      "propensity_proxy_adjusted_risk_difference": 0.027879644268087343,
+      "regression_adjusted_risk_difference": 0.04336729331174043,
+      "regression_adjusted_standard_error": 0.008961799989534554,
+      "regression_adjusted_approx_95_ci": [
+        0.025802165332252706,
+        0.06093242129122816
+      ],
+      "adjustment": "activity strata, propensity-proxy strata, and linear probability adjustment",
+      "confounders": [
+        "pre_page_visit_count",
+        "pre_search_query_count",
+        "pre_add_to_cart_count",
+        "pre_product_buy_count",
+        "pre_total_activity",
+        "pre_any_product_buy",
+        "days_since_last_pre_event",
+        "is_active_client",
+        "pre_sku_event_count",
+        "pre_unique_sku_count",
+        "pre_mean_price",
+        "pre_mean_category_sku_count"
+      ],
+      "propensity_proxy_confounders": [
+        "pre_page_visit_count",
+        "pre_search_query_count",
+        "pre_add_to_cart_count",
+        "pre_product_buy_count",
+        "pre_total_activity",
+        "pre_any_product_buy",
+        "days_since_last_pre_event",
+        "is_active_client",
+        "pre_sku_event_count",
+        "pre_unique_sku_count",
+        "pre_mean_price",
+        "pre_mean_category_sku_count"
+      ],
+      "evidence_level": "adjusted association, not a causal estimate unless ignorability assumptions hold",
+      "activity_strata": [
+        {
+          "stratum": 2,
+          "clients": 1250,
+          "treated_clients": 240,
+          "control_clients": 1010,
+          "treated_risk": 0.0625,
+          "control_risk": 0.09405940594059406,
+          "risk_difference": -0.03155940594059406,
+          "weight": 0.25
+        },
+        {
+          "stratum": 3,
+          "clients": 1250,
+          "treated_clients": 715,
+          "control_clients": 535,
+          "treated_risk": 0.1972027972027972,
+          "control_risk": 0.1588785046728972,
+          "risk_difference": 0.03832429252990002,
+          "weight": 0.25
+        }
+      ],
+      "activity_dropped_strata": [
+        {
+          "stratum": 0,
+          "clients": 1250,
+          "treated_clients": 0,
+          "control_clients": 1250,
+          "reason": "fewer than 20 clients in one arm"
+        },
+        {
+          "stratum": 1,
+          "clients": 1250,
+          "treated_clients": 17,
+          "control_clients": 1233,
+          "reason": "fewer than 20 clients in one arm"
+        }
+      ],
+      "activity_included_weight": 0.5,
+      "propensity_proxy_strata": [
+        {
+          "stratum": 2,
+          "clients": 1000,
+          "treated_clients": 63,
+          "control_clients": 937,
+          "treated_risk": 0.06349206349206349,
+          "control_risk": 0.08431163287086446,
+          "risk_difference": -0.020819569378800973,
+          "weight": 0.2
+        },
+        {
+          "stratum": 3,
+          "clients": 1000,
+          "treated_clients": 244,
+          "control_clients": 756,
+          "treated_risk": 0.1557377049180328,
+          "control_risk": 0.08862433862433862,
+          "risk_difference": 0.06711336629369417,
+          "weight": 0.2
+        },
+        {
+          "stratum": 4,
+          "clients": 1000,
+          "treated_clients": 658,
+          "control_clients": 342,
+          "treated_risk": 0.17477203647416414,
+          "control_risk": 0.13742690058479531,
+          "risk_difference": 0.03734513588936883,
+          "weight": 0.2
+        }
+      ],
+      "propensity_proxy_dropped_strata": [
+        {
+          "stratum": 0,
+          "clients": 1000,
+          "treated_clients": 1,
+          "control_clients": 999,
+          "reason": "fewer than 20 clients in one arm"
+        },
+        {
+          "stratum": 1,
+          "clients": 1000,
+          "treated_clients": 6,
+          "control_clients": 994,
+          "reason": "fewer than 20 clients in one arm"
+        }
+      ],
+      "propensity_proxy_included_weight": 0.6000000000000001,
+      "assumptions": [
+        "observed pre-period activity, recency, lifecycle, and product-property features capture major baseline intent differences",
+        "post-period product_buy is a valid conversion outcome",
+        "no major unobserved confounder remains after adjustment",
+        "treatment occurs before the outcome because of the time split",
+        "active client membership is treated as a lifecycle proxy and may leak future activity depending on target construction"
+      ]
+    }
+  ]
+}

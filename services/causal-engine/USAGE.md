@@ -50,3 +50,29 @@ Current confounders include:
 - mean category SKU count as a coarse popularity proxy
 
 This is not yet full causal discovery. It is the first working slice of the causal analysis pipeline.
+
+The stratified estimators require overlap. A stratum is excluded if either treatment arm has fewer than 20 clients or fewer than 1% of the stratum.
+
+## Experiment Harness
+
+Run standard reproducibility checks:
+
+```bash
+/Users/tulsani/miniconda3/bin/python experiments/scripts/run_synerise_experiments.py \
+  --sample-sizes 5000 50000 100000
+```
+
+Compare saved result files:
+
+```bash
+/Users/tulsani/miniconda3/bin/python experiments/scripts/compare_synerise_results.py \
+  experiments/runs/*.json
+```
+
+Use a smaller smoke run while editing:
+
+```bash
+/Users/tulsani/miniconda3/bin/python experiments/scripts/run_synerise_experiments.py \
+  --sample-sizes 1000 \
+  --label smoke
+```

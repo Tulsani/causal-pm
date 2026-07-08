@@ -1,0 +1,24 @@
+{
+  "label": "synerise_overlap",
+  "timestamp": "20260708_055716",
+  "data_dir": "/Users/tulsani/Documents/Research Ideas/Causal-PM/data/archive",
+  "train_fraction": 0.7,
+  "seed": 7,
+  "runs": [
+    {
+      "sample_size": 5000,
+      "output": "/Users/tulsani/Documents/Research Ideas/Causal-PM/experiments/runs/synerise_overlap_5000_20260708_055716.json",
+      "clients_with_post_purchase": 931
+    },
+    {
+      "sample_size": 50000,
+      "output": "/Users/tulsani/Documents/Research Ideas/Causal-PM/experiments/runs/synerise_overlap_50000_20260708_055716.json",
+      "clients_with_post_purchase": 9536
+    },
+    {
+      "sample_size": 100000,
+      "output": "/Users/tulsani/Documents/Research Ideas/Causal-PM/experiments/runs/synerise_overlap_100000_20260708_055716.json",
+      "clients_with_post_purchase": 18999
+    }
+  ]
+}

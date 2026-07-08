@@ -1,0 +1,14 @@
+{
+  "label": "smoke",
+  "timestamp": "20260708_055541",
+  "data_dir": "/Users/tulsani/Documents/Research Ideas/Causal-PM/data/archive",
+  "train_fraction": 0.7,
+  "seed": 7,
+  "runs": [
+    {
+      "sample_size": 1000,
+      "output": "/Users/tulsani/Documents/Research Ideas/Causal-PM/experiments/runs/smoke_1000_20260708_055541.json",
+      "clients_with_post_purchase": 201
+    }
+  ]
+}
