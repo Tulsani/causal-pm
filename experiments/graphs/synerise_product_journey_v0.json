@@ -1,0 +1,236 @@
+{
+  "graph_id": "synerise_product_journey_v0",
+  "nodes": [
+    {
+      "id": "page.product_detail",
+      "kind": "page",
+      "label": "Product detail page",
+      "properties": {
+        "source": "synthetic product-structure prior",
+        "dataset_proxy": "page_visit"
+      }
+    },
+    {
+      "id": "element.search_input",
+      "kind": "element",
+      "label": "Search input",
+      "properties": {
+        "dataset_proxy": "search_query",
+        "product_role": "intent formation"
+      }
+    },
+    {
+      "id": "element.product_card",
+      "kind": "element",
+      "label": "Product card",
+      "properties": {
+        "dataset_proxy": "page_visit + sku context",
+        "product_role": "evaluation"
+      }
+    },
+    {
+      "id": "element.add_to_cart_button",
+      "kind": "element",
+      "label": "Add-to-cart button",
+      "properties": {
+        "dataset_proxy": "add_to_cart",
+        "product_role": "late-funnel commitment"
+      }
+    },
+    {
+      "id": "element.remove_from_cart_button",
+      "kind": "element",
+      "label": "Remove-from-cart button",
+      "properties": {
+        "dataset_proxy": "remove_from_cart",
+        "product_role": "cart editing or reconsideration"
+      }
+    },
+    {
+      "id": "action.search_query",
+      "kind": "action",
+      "label": "Search query",
+      "properties": {
+        "dataset_event": "search_query"
+      }
+    },
+    {
+      "id": "action.add_to_cart",
+      "kind": "action",
+      "label": "Add to cart",
+      "properties": {
+        "dataset_event": "add_to_cart"
+      }
+    },
+    {
+      "id": "action.remove_from_cart",
+      "kind": "action",
+      "label": "Remove from cart",
+      "properties": {
+        "dataset_event": "remove_from_cart"
+      }
+    },
+    {
+      "id": "outcome.product_buy",
+      "kind": "outcome",
+      "label": "Product purchase",
+      "properties": {
+        "dataset_event": "product_buy"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "page.product_detail",
+      "target": "element.search_input",
+      "kind": "contains",
+      "evidence": {
+        "source": "synthetic DOM/product prior"
+      }
+    },
+    {
+      "source": "page.product_detail",
+      "target": "element.product_card",
+      "kind": "contains",
+      "evidence": {
+        "source": "synthetic DOM/product prior"
+      }
+    },
+    {
+      "source": "element.product_card",
+      "target": "element.add_to_cart_button",
+      "kind": "contains",
+      "evidence": {
+        "source": "synthetic DOM/product prior"
+      }
+    },
+    {
+      "source": "element.product_card",
+      "target": "element.remove_from_cart_button",
+      "kind": "contains",
+      "evidence": {
+        "source": "synthetic DOM/product prior"
+      }
+    },
+    {
+      "source": "element.search_input",
+      "target": "action.search_query",
+      "kind": "enables",
+      "evidence": {
+        "source": "event-to-product mapping"
+      }
+    },
+    {
+      "source": "element.add_to_cart_button",
+      "target": "action.add_to_cart",
+      "kind": "enables",
+      "evidence": {
+        "source": "event-to-product mapping"
+      }
+    },
+    {
+      "source": "element.remove_from_cart_button",
+      "target": "action.remove_from_cart",
+      "kind": "enables",
+      "evidence": {
+        "source": "event-to-product mapping"
+      }
+    },
+    {
+      "source": "action.search_query",
+      "target": "action.add_to_cart",
+      "kind": "precedes",
+      "evidence": {
+        "source": "product-journey prior",
+        "interpretation": "search can precede product evaluation and carting"
+      }
+    },
+    {
+      "source": "action.add_to_cart",
+      "target": "outcome.product_buy",
+      "kind": "precedes",
+      "weight": 0.4376633265530099,
+      "evidence": {
+        "source": "event-relative timing",
+        "window_hours": 24,
+        "scope": "any_sku",
+        "conversion_rate": 0.4376633265530099,
+        "matched_purchases": 122428,
+        "add_to_cart_events": 279731,
+        "evidence_level": "event-relative descriptive timing, not a causal estimate"
+      }
+    },
+    {
+      "source": "action.add_to_cart",
+      "target": "outcome.product_buy",
+      "kind": "influences",
+      "weight": 0.33262670208164274,
+      "evidence": {
+        "source": "event-relative timing",
+        "window_hours": 24,
+        "scope": "same_sku",
+        "conversion_rate": 0.33262670208164274,
+        "matched_purchases": 93046,
+        "add_to_cart_events": 279731,
+        "evidence_level": "event-relative descriptive timing, not a causal estimate"
+      }
+    },
+    {
+      "source": "action.search_query",
+      "target": "outcome.product_buy",
+      "kind": "causes_candidate",
+      "weight": 0.02431480961116769,
+      "evidence": {
+        "source": "pre/post adjusted effect model",
+        "sampled_clients": 100000,
+        "naive_risk_difference": -0.047039962795838164,
+        "activity_adjusted_risk_difference": 0.020699813165860545,
+        "propensity_proxy_adjusted_risk_difference": 0.018409811281450337,
+        "regression_adjusted_risk_difference": 0.02431480961116769,
+        "regression_adjusted_approx_95_ci": [
+          0.020916429623849916,
+          0.027713189598485462
+        ],
+        "evidence_level": "adjusted association, not a causal estimate unless ignorability assumptions hold"
+      }
+    },
+    {
+      "source": "action.add_to_cart",
+      "target": "outcome.product_buy",
+      "kind": "causes_candidate",
+      "weight": 0.0219494287674316,
+      "evidence": {
+        "source": "pre/post adjusted effect model",
+        "sampled_clients": 100000,
+        "naive_risk_difference": -0.10638287744415648,
+        "activity_adjusted_risk_difference": -0.011486543019938353,
+        "propensity_proxy_adjusted_risk_difference": 0.019928973244509676,
+        "regression_adjusted_risk_difference": 0.0219494287674316,
+        "regression_adjusted_approx_95_ci": [
+          0.018223976523333664,
+          0.025674881011529538
+        ],
+        "evidence_level": "adjusted association, not a causal estimate unless ignorability assumptions hold"
+      }
+    },
+    {
+      "source": "action.remove_from_cart",
+      "target": "outcome.product_buy",
+      "kind": "causes_candidate",
+      "weight": 0.032472507443736705,
+      "evidence": {
+        "source": "pre/post adjusted effect model",
+        "sampled_clients": 100000,
+        "naive_risk_difference": -0.05050523234410029,
+        "activity_adjusted_risk_difference": 0.0015806741913159995,
+        "propensity_proxy_adjusted_risk_difference": 0.02204879366898092,
+        "regression_adjusted_risk_difference": 0.032472507443736705,
+        "regression_adjusted_approx_95_ci": [
+          0.02871111842801789,
+          0.036233896459455524
+        ],
+        "evidence_level": "adjusted association, not a causal estimate unless ignorability assumptions hold"
+      }
+    }
+  ]
+}

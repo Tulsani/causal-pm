@@ -84,3 +84,12 @@ Analyze tighter event-relative windows:
   --max-clients 100000 \
   --windows-hours 1 24 168
 ```
+
+Build the first graph artifact:
+
+```bash
+/Users/tulsani/miniconda3/bin/python experiments/scripts/build_synerise_graph.py \
+  --effects experiments/runs/synerise_overlap_100000_20260708_055716.json \
+  --event-windows experiments/runs/event_windows_100000_20260708.json \
+  --output experiments/graphs/synerise_product_journey_v0.json
+```

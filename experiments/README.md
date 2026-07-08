@@ -129,3 +129,21 @@ any_sku   168           146182             52.26%
 ```
 
 `matched_purchases` counts add-to-cart events with a following purchase. The same purchase can be the next purchase for multiple prior cart events, so this is an event-level rate, not a unique purchase count.
+
+## Graph Artifact
+
+Build the first product/causal graph artifact from the adjusted-effect and event-window outputs:
+
+```bash
+python experiments/scripts/build_synerise_graph.py \
+  --effects experiments/runs/synerise_overlap_100000_20260708_055716.json \
+  --event-windows experiments/runs/event_windows_100000_20260708.json \
+  --output experiments/graphs/synerise_product_journey_v0.json
+```
+
+The graph combines:
+
+- synthetic product-structure priors such as product page contains add-to-cart button
+- event-to-product mappings such as add-to-cart button enables `add_to_cart`
+- adjusted candidate-causal edges into `product_buy`
+- event-relative timing edges from `add_to_cart` to `product_buy`

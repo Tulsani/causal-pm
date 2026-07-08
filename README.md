@@ -86,6 +86,62 @@ within 7 days:   52.26%
 
 This shows why product structure matters. `add_to_cart` is not just another event; it is a late-funnel commitment action. Evaluated against an overly broad future window, it can look negative. Evaluated against the local product journey around the event, it is strongly associated with near-term purchase.
 
+The first graph artifact is available at:
+
+```text
+experiments/graphs/synerise_product_journey_v0.json
+```
+
+It combines synthetic product-structure priors, event-to-product mappings, adjusted candidate-causal edges, and event-relative timing evidence.
+
+flowchart LR
+  %% Node groups
+  P["Product detail page<br/><small>page</small>"]
+
+  SInput["Search input<br/><small>element</small>"]
+  PCard["Product card<br/><small>element</small>"]
+  ATCBtn["Add-to-cart button<br/><small>element</small>"]
+  RFCBtn["Remove-from-cart button<br/><small>element</small>"]
+
+  Search["Search query<br/><small>action</small>"]
+  ATC["Add to cart<br/><small>action</small>"]
+  RFC["Remove from cart<br/><small>action</small>"]
+
+  Buy["Product purchase<br/><small>outcome</small>"]
+
+  %% Structure edges
+  P -->|contains| SInput
+  P -->|contains| PCard
+  PCard -->|contains| ATCBtn
+  PCard -->|contains| RFCBtn
+
+  %% Enables edges
+  SInput -->|enables| Search
+  ATCBtn -->|enables| ATC
+  RFCBtn -->|enables| RFC
+
+  %% Journey edges
+  Search -->|precedes| ATC
+  ATC -->|precedes: any SKU CR 43.77%| Buy
+  ATC -->|influences: same SKU CR 33.26%| Buy
+
+  %% Adjusted association edges
+  Search -.->|causes_candidate +2.43pp| Buy
+  ATC -.->|causes_candidate +2.19pp| Buy
+  RFC -.->|causes_candidate +3.25pp| Buy
+
+  %% Styling
+  classDef page fill:#eef6ff,stroke:#3b82f6,stroke-width:1px;
+  classDef element fill:#f8fafc,stroke:#64748b,stroke-width:1px;
+  classDef action fill:#ecfdf5,stroke:#10b981,stroke-width:1px;
+  classDef outcome fill:#fff7ed,stroke:#f97316,stroke-width:2px;
+  classDef candidate stroke-dasharray: 5 5;
+
+  class P page;
+  class SInput,PCard,ATCBtn,RFCBtn element;
+  class Search,ATC,RFC action;
+  class Buy outcome;
+
 ## System Shape
 
 ```text
