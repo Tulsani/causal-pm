@@ -96,46 +96,36 @@ It combines synthetic product-structure priors, event-to-product mappings, adjus
 
 ```mermaid
 flowchart LR
-  %% Pages
   PDP["Product Detail Page"]
 
-  %% Elements
   SearchInput["Search Input"]
   ProductCard["Product Card"]
   AddBtn["Add-to-Cart Button"]
   RemoveBtn["Remove-from-Cart Button"]
 
-  %% Actions
   Search["Search Query"]
   Add["Add to Cart"]
   Remove["Remove from Cart"]
-
-  %% Outcome
   Purchase["Product Purchase"]
 
-  %% Page structure
-  PDP -->|contains| SearchInput
-  PDP -->|contains| ProductCard
-  ProductCard -->|contains| AddBtn
-  ProductCard -->|contains| RemoveBtn
+  PDP -->|"contains"| SearchInput
+  PDP -->|"contains"| ProductCard
+  ProductCard -->|"contains"| AddBtn
+  ProductCard -->|"contains"| RemoveBtn
 
-  %% UI -> Events
-  SearchInput -->|enables| Search
-  AddBtn -->|enables| Add
-  RemoveBtn -->|enables| Remove
+  SearchInput -->|"enables"| Search
+  AddBtn -->|"enables"| Add
+  RemoveBtn -->|"enables"| Remove
 
-  %% Journey
-  Search -->|precedes| Add
+  Search -->|"precedes"| Add
 
-  %% Purchase relationships
-  Add -->|precedes (43.77% any SKU)| Purchase
-  Add -->|influences (33.26% same SKU)| Purchase
+  Add -->|"precedes: 43.77 percent any SKU"| Purchase
+  Add -->|"influences: 33.26 percent same SKU"| Purchase
 
-  Search -.->|candidate (+2.43%)| Purchase
-  Add -.->|candidate (+2.19%)| Purchase
-  Remove -.->|candidate (+3.25%)| Purchase
+  Search -.->|"candidate: +2.43 pp"| Purchase
+  Add -.->|"candidate: +2.19 pp"| Purchase
+  Remove -.->|"candidate: +3.25 pp"| Purchase
 
-  %% Styling
   classDef page fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
   classDef element fill:#f8fafc,stroke:#64748b;
   classDef action fill:#dcfce7,stroke:#16a34a;
