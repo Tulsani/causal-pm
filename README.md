@@ -94,53 +94,58 @@ experiments/graphs/synerise_product_journey_v0.json
 
 It combines synthetic product-structure priors, event-to-product mappings, adjusted candidate-causal edges, and event-relative timing evidence.
 
+```mermaid
 flowchart LR
-  %% Node groups
-  P["Product detail page<br/><small>page</small>"]
+  %% Pages
+  PDP["Product Detail Page"]
 
-  SInput["Search input<br/><small>element</small>"]
-  PCard["Product card<br/><small>element</small>"]
-  ATCBtn["Add-to-cart button<br/><small>element</small>"]
-  RFCBtn["Remove-from-cart button<br/><small>element</small>"]
+  %% Elements
+  SearchInput["Search Input"]
+  ProductCard["Product Card"]
+  AddBtn["Add-to-Cart Button"]
+  RemoveBtn["Remove-from-Cart Button"]
 
-  Search["Search query<br/><small>action</small>"]
-  ATC["Add to cart<br/><small>action</small>"]
-  RFC["Remove from cart<br/><small>action</small>"]
+  %% Actions
+  Search["Search Query"]
+  Add["Add to Cart"]
+  Remove["Remove from Cart"]
 
-  Buy["Product purchase<br/><small>outcome</small>"]
+  %% Outcome
+  Purchase["Product Purchase"]
 
-  %% Structure edges
-  P -->|contains| SInput
-  P -->|contains| PCard
-  PCard -->|contains| ATCBtn
-  PCard -->|contains| RFCBtn
+  %% Page structure
+  PDP -->|contains| SearchInput
+  PDP -->|contains| ProductCard
+  ProductCard -->|contains| AddBtn
+  ProductCard -->|contains| RemoveBtn
 
-  %% Enables edges
-  SInput -->|enables| Search
-  ATCBtn -->|enables| ATC
-  RFCBtn -->|enables| RFC
+  %% UI -> Events
+  SearchInput -->|enables| Search
+  AddBtn -->|enables| Add
+  RemoveBtn -->|enables| Remove
 
-  %% Journey edges
-  Search -->|precedes| ATC
-  ATC -->|precedes: any SKU CR 43.77%| Buy
-  ATC -->|influences: same SKU CR 33.26%| Buy
+  %% Journey
+  Search -->|precedes| Add
 
-  %% Adjusted association edges
-  Search -.->|causes_candidate +2.43pp| Buy
-  ATC -.->|causes_candidate +2.19pp| Buy
-  RFC -.->|causes_candidate +3.25pp| Buy
+  %% Purchase relationships
+  Add -->|precedes (43.77% any SKU)| Purchase
+  Add -->|influences (33.26% same SKU)| Purchase
+
+  Search -.->|candidate (+2.43%)| Purchase
+  Add -.->|candidate (+2.19%)| Purchase
+  Remove -.->|candidate (+3.25%)| Purchase
 
   %% Styling
-  classDef page fill:#eef6ff,stroke:#3b82f6,stroke-width:1px;
-  classDef element fill:#f8fafc,stroke:#64748b,stroke-width:1px;
-  classDef action fill:#ecfdf5,stroke:#10b981,stroke-width:1px;
-  classDef outcome fill:#fff7ed,stroke:#f97316,stroke-width:2px;
-  classDef candidate stroke-dasharray: 5 5;
+  classDef page fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+  classDef element fill:#f8fafc,stroke:#64748b;
+  classDef action fill:#dcfce7,stroke:#16a34a;
+  classDef outcome fill:#fed7aa,stroke:#ea580c,stroke-width:2px;
 
-  class P page;
-  class SInput,PCard,ATCBtn,RFCBtn element;
-  class Search,ATC,RFC action;
-  class Buy outcome;
+  class PDP page;
+  class SearchInput,ProductCard,AddBtn,RemoveBtn element;
+  class Search,Add,Remove action;
+  class Purchase outcome;
+```
 
 ## System Shape
 
