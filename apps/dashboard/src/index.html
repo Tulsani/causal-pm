@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Causal PM Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Causal PM v1</p>
+          <h1>Product Causal Insight Dashboard</h1>
+        </div>
+        <div class="status-pill" id="load-status">Loading evidence</div>
+      </header>
+
+      <section class="query-panel" aria-labelledby="ask-heading">
+        <div>
+          <h2 id="ask-heading">Ask a product question</h2>
+          <p>
+            The dashboard translates PM questions into evidence from the causal engine,
+            event-window analysis, and product graph.
+          </p>
+        </div>
+        <form id="question-form" class="question-form">
+          <input
+            id="question-input"
+            type="text"
+            value="Why do add-to-cart users appear less likely to buy later?"
+            aria-label="Product question"
+          />
+          <button type="submit">Analyze</button>
+        </form>
+      </section>
+
+      <nav class="tabs" aria-label="Dashboard sections">
+        <button class="tab active" data-tab="insights" type="button">Insights</button>
+        <button class="tab" data-tab="evidence" type="button">Evidence</button>
+        <button class="tab" data-tab="graph" type="button">Graph</button>
+        <button class="tab" data-tab="tests" type="button">Next Tests</button>
+      </nav>
+
+      <section id="insights" class="tab-panel active">
+        <div class="insight-layout">
+          <article class="answer-card">
+            <div class="card-heading">
+              <p class="eyebrow">Generated answer</p>
+              <span class="evidence-badge">Adjusted association</span>
+            </div>
+            <h2 id="answer-title">Raw add-to-cart analysis is misleading</h2>
+            <p id="answer-body" class="answer-body"></p>
+            <div class="metric-strip">
+              <div>
+                <span class="metric-label">Raw</span>
+                <strong id="metric-naive">-</strong>
+              </div>
+              <div>
+                <span class="metric-label">Regression adjusted</span>
+                <strong id="metric-regression">-</strong>
+              </div>
+              <div>
+                <span class="metric-label">24h same-SKU</span>
+                <strong id="metric-window">-</strong>
+              </div>
+            </div>
+          </article>
+
+          <aside class="side-panel">
+            <h3>Why the estimate changed</h3>
+            <ul id="confounder-list"></ul>
+          </aside>
+        </div>
+
+        <div class="insight-grid" id="insight-grid"></div>
+      </section>
+
+      <section id="evidence" class="tab-panel">
+        <div class="section-heading">
+          <h2>Raw vs Adjusted Evidence</h2>
+          <p>Each row compares descriptive analytics with adjusted causal-engine estimates.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Raw</th>
+                <th>Activity</th>
+                <th>Propensity</th>
+                <th>Regression</th>
+                <th>Evidence level</th>
+              </tr>
+            </thead>
+            <tbody id="evidence-table"></tbody>
+          </table>
+        </div>
+
+        <div class="section-heading compact">
+          <h2>Event-Relative Add-To-Cart Windows</h2>
+          <p>Near-term purchase timing after each add-to-cart event.</p>
+        </div>
+        <div class="window-grid" id="window-grid"></div>
+      </section>
+
+      <section id="graph" class="tab-panel">
+        <div class="section-heading">
+          <h2>Product Journey Graph</h2>
+          <p>Structure edges are separated from evidence-weighted behavioral edges.</p>
+        </div>
+        <div class="graph-layout">
+          <div class="graph-canvas" id="graph-canvas" aria-label="Product journey graph"></div>
+          <div class="edge-details">
+            <h3>Selected Evidence</h3>
+            <div id="edge-detail-content">Select an edge in the graph.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tests" class="tab-panel">
+        <div class="section-heading">
+          <h2>Recommended Next Tests</h2>
+          <p>Follow-up analyses generated from evidence gaps and graph structure.</p>
+        </div>
+        <div class="test-list" id="test-list"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
